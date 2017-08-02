@@ -34,28 +34,31 @@ Or to give another example of uploading a sample file:
 [ExecutableBinarySample] 597527e215b77f2e9192337e
 
 There are two ways of retrieving objects from the server.
-The first one is two get a single object by its identifier with :func:`get`.
+The first one is to get a single object by its identifier with :func:`get`.
 The identifier is usually the `id` of the object, as you can see here:
 
 >>> Sample.get('597f721c15b77f0f23d16c0e')
 [FileSample] 597f721c15b77f0f23d16c0e
 
-But there are also some resources, which have another unique identifier, like their name.
+But there are also some resources, which have another unique identifier, like their name or uuid.
 Resources with different identifiers are :class:`AnalysisSystem`, :class:`AnalysisSystemInstance` and :class:`SampleRelationType`.
 
 >>> AnalysisSystem.get('ssdeep')
 [AnalysisSystem] ssdeep
 
 The second way to retrieve objects, is to query them by specific filter parameters.
-Therefore you can use :func:`query`, which returns a iterator over the matching objects:
+Therefore you can use :func:`query`, which returns a iterator over the matching objects.
+For example you could search for all samples uploaded within the last two days:
 
 >>> samples = Sample.query(delivery_date__gte=datetime.datetime.now() - datetime.timedelta(days=2))
 >>> list(samples)
-[[URISample] 5980d97115b77f1097d2dce6, [FileSample] 597f721c15b77f0f23d16c0e, [FileSample] 597f721715b77f0f23d16c06, [FileSample] 597f720c15b77f0f23d16c01, [FileSample] 597f4a5015b77f0f23d16768, [FileSample] 597f4a4b15b77f0f23d16764, [FileSample] 597f4a4415b77f0f23d16760, [FileSample] 597f4a3d15b77f0f23d1675c]
+[[URISample] 5980d97115b77f1097d2dce6, [FileSample] 597f721c15b77f0f23d16c0e, [FileSample] 597f721715b77f0f23d16c06]
 
 You can also use multiple parameters at once:
 
->>> FileSample.query(file_size__gte=50000, tags__all='has-callgraph')
+>>> FileSample.query(file_size__gte=50000, tags__all='foo')
+
+This would return all samples with a file size over 50,000 bytes, which also have the tag 'foo'.
 
 The available filter parameters are resource specific and currently only implemented for samples.
 To find a list of available filters and also other resource specific methods, please take a look at `Resources <resources_reference.html#Resources>`_.
