@@ -63,6 +63,16 @@ This would return all samples with a file size over 50,000 bytes, which also hav
 The available filter parameters are resource specific and currently only implemented for samples.
 To find a list of available filters and also other resource specific methods, please take a look at `Resources <resources_reference.html#Resources>`_.
 
+Using multiple connections
+--------------------------
+
+To use multiple connections you can register those with the connection manager
+and use the `SwitchConnection <connection_reference.html#mass_api_client.switch_connection.SwitchConnection>`_
+contextmanager to get a modified `Resource <resources_reference.html#Resources>`_ class, which will use the specified connection.
+
+>>> mac.ConnectionManager().register_connection('other', '<your other api key>', '<other mass server url>')
+>>> with mac.SwitchConnection(FileSample, 'other') as OtherFileSample:
+...    OtherFileSample.get('597f721c15b77f0f23d16c0e')
 
 
 Implementing analysis systems
