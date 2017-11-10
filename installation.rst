@@ -92,3 +92,41 @@ If you want to work with the MASS server source code, please proceed as follows:
     pip install -e .
 
 This will install the MASS server in *editable mode* in a directory of your choice. You can then open the source code in your favorite editor/IDE and start hacking :-)
+
+Install the MASS API client
+---------------------------
+
+The MASS API client provides a comfortable way to interact with the MASS server using the MASS API. It can be used to connect external systems to MASS or to build a completely new analysis system. For examples, please read the :doc:`/python_client_tutorial`.
+
+The MASS API client can be installed independently of the MASS server and is not required to run the server. Similar to the explanations above, you may install the MASS API client system-wide or in a virtual environment.
+
+Install for production use
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you just want to use the MASS API client to run/develop your own tools and have no intent of working with the MASS API client source code itself, you can just issue the following command:
+
+.. code-block:: bash
+
+    pip install mass-api-client
+
+This will install the stable version of the MASS API client from PyPI. Depending on the current development progress, this version may not be the newest available version. If you want to install the most recent version, you can instead use the following command:
+
+.. code-block:: bash
+
+    pip install git+https://github.com/mass-project/mass_api_client.git
+
+This will install the MASS API client from the Github ``master`` branch. This branch should generally be safe to install, but may contain experimental/incomplete features.
+
+Install for development
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If you want to work with the MASS API client source code, please proceed as follows:
+
+.. code-block:: bash
+
+    cd /some/directory
+    git clone https://github.com/mass-project/mass_api_client.git
+    cd mass_api_client
+    pip install -e .
+
+This will install the MASS API client in *editable mode* in a directory of your choice. You can then open the source code in your favorite editor/IDE and start hacking :-)
