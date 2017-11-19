@@ -1,0 +1,18 @@
+version: "3"
+services:
+  web:
+    image: myAnalysisImage:latest
+    deploy:
+      labels:
+        com.mass.anal_system: "http://localhost:8000/api/analysis_system/myanalysissystem/"
+        com.mass.min_inst: "6"
+        com.mass.max_inst: "10"
+        com.mass.laziness: "20"
+        com.mass.start_demand: "6"
+      replicas: 5
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
