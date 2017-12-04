@@ -27,12 +27,23 @@ So for example to create a new Sample with an URI on the server you could simply
 [Sample] 5980d97115b77f1097d2dce6
 
 As you can see, the :func:`create` method also returns the newly created object.
-Or to give another example of uploading a sample file:
+Samples can hold multiple unique features.
+So for example you could create a sample by uploading a file and also giving an URI:
 
 >>> with open('sample.exe', 'rb') as fp:
-...     Sample.create(filename='sample.exe', file=fp)
+...     Sample.create(uri='https://mass-project.github.io/', filename='sample.exe', file=fp)
 ...
 [Sample] 597527e215b77f2e9192337e
+
+To check whether a sample has a specific feature, there are some convenience functions you can use:
+
+>>> sample = Sample.create(uri='https://mass-project.github.io/')
+>>> sample.has_uri()
+True
+>>> sample.has_ipv4()
+False
+
+Check out the `references <resources_reference.html#module-mass_api_client.resources.sample>`_ for a full list of unique features and the corresponding functions.
 
 There are two ways of retrieving objects from the server.
 The first one is to get a single object by its identifier with :func:`get`.
