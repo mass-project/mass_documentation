@@ -9,6 +9,7 @@ To get started with using the python client, you first need to define a connecti
 >>> import mass_api_client as mac
 >>> mac.ConnectionManager().register_connection('default', '<your api key>', '<mass server url>')
 
+Be aware, that the server url should usually end with :code:`/api`.
 The connection with the alias 'default' will be used for every request, unless you use `SwitchConnection <connection_reference.html#mass_api_client.switch_connection.SwitchConnection>`_
 
 
@@ -19,19 +20,30 @@ All samples, reports and other objects on the server can be managed with the res
 Every resource supports the creation and retrieval of objects on the server.
 
 To create objects, every resource has a :func:`create` method with specific parameters.
-So for example to create a new URISample on the server you could simply use this:
+So for example to create a new Sample with an URI on the server you could simply use this:
 
 >>> from mass_api_client.resources import *
->>> URISample.create('https://mass-project.github.io/')
-[URISample] 5980d97115b77f1097d2dce6
+>>> Sample.create(uri='https://mass-project.github.io/')
+[Sample] 5980d97115b77f1097d2dce6
 
 As you can see, the :func:`create` method also returns the newly created object.
-Or to give another example of uploading a sample file:
+Samples can hold multiple unique features.
+So for example you could create a sample by uploading a file and also giving an URI:
 
 >>> with open('sample.exe', 'rb') as fp:
-...     FileSample.create('sample.exe', fp)
+...     Sample.create(uri='https://mass-project.github.io/', filename='sample.exe', file=fp)
 ...
-[ExecutableBinarySample] 597527e215b77f2e9192337e
+[Sample] 597527e215b77f2e9192337e
+
+To check whether a sample has a specific feature, there are some convenience functions you can use:
+
+>>> sample = Sample.create(uri='https://mass-project.github.io/')
+>>> sample.has_uri()
+True
+>>> sample.has_ipv4()
+False
+
+Check out the `references <resources_reference.html#module-mass_api_client.resources.sample>`_ for a full list of unique features and the corresponding functions.
 
 There are two ways of retrieving objects from the server.
 The first one is to get a single object by its identifier with :func:`get`.
@@ -56,7 +68,7 @@ For example you could search for all samples uploaded within the last two days:
 
 You can also use multiple parameters at once:
 
->>> FileSample.query(file_size__gte=50000, tags__all='foo')
+>>> Sample.query(file_size__gte=50000, tags__all='foo')
 
 This would return all samples with a file size over 50,000 bytes, which also have the tag 'foo'.
 
