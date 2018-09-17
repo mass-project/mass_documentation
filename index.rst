@@ -17,6 +17,7 @@ About MASS
    production_use
    python_client_tutorial
    python_client_reference
+   multistaged_analysis
    faq
 
 Indices and tables
