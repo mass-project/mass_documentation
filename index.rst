@@ -18,6 +18,7 @@ About MASS
    python_client_tutorial
    python_client_reference
    multistaged_analysis
+   multistaged_reference
    faq
 
 Indices and tables

@@ -1,3 +1,4 @@
 sphinx==1.6.7
 sphinx-rtd-theme==0.2.4
-mass-api-client==0.1.1
+git+https://github.com/mass-project/mass_api_client.git@0.3_queue-fix
+git+https://github.com/Silberschleier/stomp.py.git
